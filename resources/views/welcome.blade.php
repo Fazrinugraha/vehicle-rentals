@@ -37,20 +37,20 @@
             <div class="row">
                 <!-- Login Image Section -->
                 <div class="col-lg-6">
-                    <div class="login_box_img">
+                    <div class="">
                         <img class="img-fluid" src="{{ asset('assets/templates/user/img/login.jpg') }}" alt="Login Image">
-                        <div class="hover">
-                            <h4>New to our website?</h4>
-                            <p>There are advances being made in science and technology every day, and a good example of this is the</p>
-                            <a class="primary-btn" href="registration.html">Create an Account</a>
-                        </div>
+                        <!-- <div class="hover"> -->
+                            <!-- <h4>Vehicle Rentals</h4> -->
+                            <!-- <p>There are advances being made in science and technology every day, and a good example of this is the</p>
+                            <a class="primary-btn" href="registration.html">Create an Account</a> -->
+                        <!-- </div> -->
                     </div>
                 </div>
 
                 <!-- Login Form Section -->
                 <div class="col-lg-6">
                     <div class="login_form_inner">
-                        <h3>Log in to enter</h3>
+                        <h3>Halaman Login</h3>
                         <form class="row login_form" action="/post-login" method="POST" id="contactForm" novalidate="novalidate">
                             @csrf
                             <div class="col-md-12 form-group">
@@ -63,6 +63,9 @@
                                 <button type="submit" value="submit" class="primary-btn">Log In</button>
                             </div>
                         </form>
+                        <div class="hover">
+                            <a class="primary-btn" href="registration.html">Create an Account</a>
+                        </div>
                     </div>
                 </div>
             </div>

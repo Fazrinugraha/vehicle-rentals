@@ -1,7 +1,9 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{ route('admin.dashboard') }}">Teknik Informatika | KSI5A</a>
+            <a href="{{ route('admin.dashboard') }}">
+                <img src="assets/templates/admin/img/logo.png" alt="" style="width: 100px; height: auto;">
+            </a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
             <a href="{{ route('admin.dashboard') }}">FAZRI</a>
@@ -11,7 +13,7 @@
             <!-- Dashboard Menu -->
             <li class="{{ Route::is('admin.dashboard') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.dashboard') }}">
-                    <i class="fas fa-chart-line" style="color: #3F51B5;"></i>                    
+                    <i class="fas fa-home" style="color: #3F51B5;"></i>                    
                     <span>Dashboard</span>
                 </a>
             </li>

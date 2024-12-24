@@ -10,13 +10,19 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class KendaraanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $kendaraans = Kendaraan::all(); 
-        
+        // Ambil status dari query string, jika ada
+        $status = $request->get('status');
+    
+        // Ambil semua kendaraan, jika status tidak ada, ambil semua
+        $kendaraans = Kendaraan::when($status, function ($query, $status) {
+            return $query->where('status', $status);
+        })->paginate(10);
+    
         confirmDelete('Hapus Data!', 'Apakah anda yakin ingin menghapus data ini?'); // Konfirmasi Hapus Distributor
-
-        return view('pages.admin.kendaraan.index', compact('kendaraans'));
+    
+        return view('pages.admin.kendaraan.index', compact('kendaraans', 'status'));
     }
     
     // Function Tambah Kendaraan
@@ -30,7 +36,7 @@ class KendaraanController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_kendaraan' => 'required|string|max:255', 
             'jenis_kendaraan' => 'required|in:mobil,motor',
-            'images' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'images' => 'required|image|mimes:jpeg,png,jpg|max:5120',
         ]);
 
         if ($validator->fails()) {
@@ -83,7 +89,7 @@ class KendaraanController extends Controller
             'nama_kendaraan' => 'required|string|max:255',
             'jenis_kendaraan' => 'required|in:mobil,motor',
             'status' => 'required|in:tersedia,dipinjam',
-            'images' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validasi untuk gambar
+            'images' => 'required|image|mimes:jpeg,png,jpg|max:5120',
         ]);
 
         if ($validator->fails()) {

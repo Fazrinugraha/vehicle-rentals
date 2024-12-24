@@ -18,7 +18,7 @@ class PeminjamanController extends Controller
         $peminjaman = Peminjaman::with('kendaraan')
             ->orderBy('tanggal_peminjaman', 'desc') // Urutkan berdasarkan tanggal peminjaman terbaru
             ->orderBy('tanggal_pengembalian', 'desc') // Jika tanggal peminjaman sama, urutkan berdasarkan tanggal pengembalian terbaru
-            ->get();
+            ->paginate(10);;
 
         confirmDelete('Hapus Data!', 'Apakah anda yakin ingin menghapus data ini?'); // Konfirmasi Hapus Distributor
 

@@ -39,8 +39,8 @@
                             <td>{{ ++$no }}</td> 
                             <td>{{ $item->nama_peminjam }}</td> 
                             <td>{{ $item->kendaraan->nama_kendaraan }}</td> 
-                            <td>{{ $item->tanggal_peminjaman }}</td> 
-                            <td>{{ $item->tanggal_pengembalian }}</td> 
+                            <td>{{ \Carbon\Carbon::parse($item->tanggal_peminjaman)->format('d-m-Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($item->tanggal_pengembalian)->format('d-m-Y') }}</td>
                             <td>{{ ucfirst($item->status) }}</td>  
                             <td> 
                                 <a href="{{ route('admin.peminjaman.detail', $item->id) }}" class="badge badge-info">Detail</a> 
@@ -55,6 +55,26 @@
                     @endforelse 
                     </tbody>
                 </table> 
+                    <!-- Pagination -->
+                    <div class="mt-3 d-flex justify-content-center">
+                        @if ($peminjaman->onFirstPage())
+                            <span class="page-link disabled box">Sebelumnya</span>
+                        @else
+                            <a href="{{ $peminjaman->previousPageUrl() }}" class="page-link prev-next box">Sebelumnya</a>
+                        @endif
+                        <ul class="pagination">
+                            @foreach ($peminjaman->getUrlRange(1, $peminjaman->lastPage()) as $page => $url)
+                                <li class="page-item {{ $page == $peminjaman->currentPage() ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                        @if ($peminjaman->hasMorePages())
+                            <a href="{{ $peminjaman->nextPageUrl() }}" class="page-link prev-next box">Selanjutnya</a>
+                        @else
+                            <span class="page-link disabled box">Selanjutnya</span>
+                        @endif
+                    </div>
             </div> 
         </div> 
     </section> 

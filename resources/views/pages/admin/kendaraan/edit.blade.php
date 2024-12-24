@@ -20,7 +20,7 @@
             <form action="{{ route('admin.kendaraan.update', $kendaraan->id) }}" class="needs-validation" novalidate=""
                 enctype="multipart/form-data" method="POST">
                 @csrf
-                @method('PUT') <!-- Menambahkan method PUT untuk update -->
+                @method('PUT') 
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6"> 

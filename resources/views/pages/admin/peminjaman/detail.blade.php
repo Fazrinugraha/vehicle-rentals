@@ -44,8 +44,8 @@
                         <ul>
                             <li>
                                 <strong>Nama Peminjam:</strong> {{ $peminjaman->nama_peminjam }} <br>
-                                <strong>Tanggal Peminjaman:</strong> {{ $peminjaman->tanggal_peminjaman }} <br>
-                                <strong>Tanggal Pengembalian:</strong> {{ $peminjaman->tanggal_pengembalian }} <br>
+                                <strong>Tanggal Peminjaman:</strong> {{ \Carbon\Carbon::parse($peminjaman->tanggal_peminjaman)->translatedFormat('d F Y') }} <br>
+                                <strong>Tanggal Pengembalian:</strong> {{ \Carbon\Carbon::parse($peminjaman->tanggal_pengembalian)->translatedFormat('d F Y') }} <br>
                                 <strong>Status:</strong> {{ ucfirst($peminjaman->status) }}
                             </li>
                         </ul>

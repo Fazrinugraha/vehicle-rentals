@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Mengatur locale ke bahasa Indonesia
+        setlocale(LC_TIME, 'id_ID.UTF-8');
     }
 }

@@ -14,6 +14,26 @@
             </div> 
         </div> 
         <a href="{{ route('admin.kendaraan.create') }}" class="btn btn-icon icon-left btn-primary"><i class="fas fa-plus"></i>Tambah Kendaraan</a>  
+        
+        <!-- Filter Form -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h4>Filter Kendaraan</h4>
+            </div>
+            <div class="card-body">
+                <form method="GET" action="{{ route('admin.kendaraan') }}">
+                    <div class="form-group">
+                        <label for="status">Filter berdasarkan Status</label>
+                        <select id="status" name="status" class="form-control" onchange="this.form.submit()">
+                            <option value="">Semua</option>
+                            <option value="tersedia" {{ request('status') == 'tersedia' ? 'selected' : '' }}>Tersedia</option>
+                            <option value="dipinjam" {{ request('status') == 'dipinjam' ? 'selected' : '' }}>Dipinjam</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <div class="card-body"> 
             <div class="table-responsive"> 
                 <table class="table table-bordered table-md"> 
@@ -56,7 +76,27 @@
                         </tr>
                     @endforelse 
                     </tbody>
-                </table> 
+                </table>
+                    <!-- Pagination -->
+                    <div class="mt-3 d-flex justify-content-center">
+                        @if ($kendaraans->onFirstPage())
+                            <span class="page-link disabled box">Sebelumnya</span>
+                        @else
+                            <a href="{{ $kendaraans->previousPageUrl() }}" class="page-link prev-next box">Sebelumnya</a>
+                        @endif
+                        <ul class="pagination">
+                            @foreach ($kendaraans->getUrlRange(1, $kendaraans->lastPage()) as $page => $url)
+                                <li class="page-item {{ $page == $kendaraans->currentPage() ? 'active' : '' }}">
+                                    <a class="page-link" href="{{ $url }}">{{ $page }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                        @if ($kendaraans->hasMorePages())
+                            <a href="{{ $kendaraans->nextPageUrl() }}" class="page-link prev-next box">Selanjutnya</a>
+                        @else
+                            <span class="page-link disabled box">Selanjutnya</span>
+                        @endif
+                    </div>
             </div> 
         </div> 
     </section> 
