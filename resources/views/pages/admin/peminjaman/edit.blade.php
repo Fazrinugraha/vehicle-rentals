@@ -36,7 +36,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label>Kendaraan</label>
-                                <input type="text" class="form-control" value="{{ $peminjaman->kendaraan->nama_kendaraan }}" readonly>
+                                <input type="text" class="form-control" value="{{ $peminjaman->kendaraan->nama_kendaraan }} - {{ $peminjaman->kendaraan->no_plat }}" readonly>
                                 <small class="form-text text-muted">Kendaraan yang dipinjam.</small>
                             </div>
                         </div>

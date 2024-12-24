@@ -39,6 +39,9 @@
                         <div class="article-category">
                             <strong>Status Kendaraan:</strong> {{ $kendaraan->status }}
                         </div> 
+                        <div class="article-category">
+                            <strong>No Plat:</strong> {{ $kendaraan->no_plat }}
+                        </div> 
                     </div> 
                 </article> 
             </div> 

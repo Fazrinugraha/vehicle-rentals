@@ -13,6 +13,15 @@
         </div>
         <a href="{{ route('admin.kendaraan') }}" class="btn btn-icon icon-left btn-warning"> Kembali</a>
         <div class="card mt-4">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form action="{{ route('admin.kendaraan.store') }}" class="needs-validation" novalidate="" enctype="multipart/form-data" method="POST">
                 @csrf
                 <div class="card-body">
@@ -36,6 +45,15 @@
                                 </select>
                                 <div class="invalid-feedback">
                                     Kolom ini harus diisi!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="no_plat">No Plat</label>
+                                <input id="no_plat" type="text" class="form-control" name="no_plat" required="">
+                                <div class="invalid-feedback">
+                                    Kolom ini harus diisi dan harus unik!
                                 </div>
                             </div>
                         </div>

@@ -37,7 +37,10 @@ class KendaraanController extends Controller
             'nama_kendaraan' => 'required|string|max:255', 
             'jenis_kendaraan' => 'required|in:mobil,motor',
             'images' => 'required|image|mimes:jpeg,png,jpg|max:5120',
-        ]);
+            'no_plat' => 'required|string|max:20|unique:kendaraans,no_plat',
+            ],[
+                'no_plat.unique' => 'No Plat sudah ada. Silakan gunakan No Plat yang lain.', 
+            ]);
 
         if ($validator->fails()) {
             Alert::error('Gagal!', 'Pastikan semua terisi dengan benar!');
@@ -58,6 +61,7 @@ class KendaraanController extends Controller
             'jenis_kendaraan' => $request->jenis_kendaraan,
             'status' => 'tersedia',
             'images' => $imageName, 
+            'no_plat' => $request->no_plat,
         ]);
 
         if ($kendaraan) {
@@ -89,37 +93,47 @@ class KendaraanController extends Controller
             'nama_kendaraan' => 'required|string|max:255',
             'jenis_kendaraan' => 'required|in:mobil,motor',
             'status' => 'required|in:tersedia,dipinjam',
-            'images' => 'required|image|mimes:jpeg,png,jpg|max:5120',
+            'images' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+            'no_plat' => 'required|string|max:20|unique:kendaraans,no_plat,' . $id, 
+        ], [
+            'no_plat.unique' => 'No Plat sudah ada. Silakan gunakan No Plat yang lain.',
         ]);
-
+    
         if ($validator->fails()) {
             Alert::error('Gagal!', 'Pastikan semua terisi dengan benar!');
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+    
         $kendaraan = Kendaraan::findOrFail($id);
         $kendaraan->update($request->except('images')); // Update data lain
-
+    
         // Proses penyimpanan gambar jika ada
         if ($request->hasFile('images')) {
             $image = $request->file('images');
             $imageName = time() . '.' . $image->getClientOriginalExtension(); // Membuat nama gambar unik
             $image->move(public_path('images'), $imageName); // Pindahkan gambar ke folder public/images
             $kendaraan->images = $imageName; // Update nama gambar
+        } else {
+            // Jika tidak ada gambar baru, tetap gunakan gambar yang lama
+            $kendaraan->images = $kendaraan->images; 
         }
-
+    
+        $kendaraan->no_plat = $request->no_plat; 
         $kendaraan->save();
-
+    
         Alert::success('Berhasil!', 'Kendaraan berhasil diperbarui!');
         return redirect()->route('admin.kendaraan');
     }
 
-    // Function Hapus Kendaraan
+   // Function Hapus Kendaraan
     public function delete($id)
     {
         $kendaraan = Kendaraan::findOrFail($id);
 
         if ($kendaraan) {
+            // Hapus semua peminjaman yang terkait dengan kendaraan ini
+            $kendaraan->peminjaman()->delete(); // Menghapus semua peminjaman terkait
+
             // Jika ada gambar, hapus file gambar dari server
             if ($kendaraan->images) {
                 $imagePath = public_path('images/' . $kendaraan->images);

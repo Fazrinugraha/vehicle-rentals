@@ -16,5 +16,11 @@ class Kendaraan extends Model
         'jenis_kendaraan',
         'status',
         'images',
+        'no_plat',
     ];
+
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class, 'id_kendaraan');
+    }
 }

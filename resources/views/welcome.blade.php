@@ -15,7 +15,7 @@
     <!-- Meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-    <title>Merch Store</title>
+    <title>Vehicle Rentals</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('assets/templates/user/css/linearicons.css') }}">
@@ -50,7 +50,7 @@
                 <!-- Login Form Section -->
                 <div class="col-lg-6">
                     <div class="login_form_inner">
-                        <h3>Halaman Login</h3>
+                        <h3>Vehicle Rentals</h3>
                         <form class="row login_form" action="/post-login" method="POST" id="contactForm" novalidate="novalidate">
                             @csrf
                             <div class="col-md-12 form-group">

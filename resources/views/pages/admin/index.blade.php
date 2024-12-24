@@ -136,8 +136,8 @@
                         @endforelse 
                         </tbody>
                     </table>
-                     <!-- Pagination -->
-                     <div class="mt-3 d-flex justify-content-center">
+                    <!-- Pagination -->
+                    <div class="mt-3 d-flex justify-content-center">
                         @if ($kendaraans->onFirstPage())
                             <span class="page-link disabled box">Sebelumnya</span>
                         @else

@@ -39,6 +39,9 @@
                         <div class="article-category">
                             <strong>Status Kendaraan:</strong> {{ $peminjaman->kendaraan->status }}
                         </div> 
+                        <div class="article-category">
+                            <strong>No Plat:</strong> {{ $peminjaman->kendaraan->no_plat }} 
+                        </div> 
                         <hr>
                         <h4>Informasi Peminjaman</h4>
                         <ul>

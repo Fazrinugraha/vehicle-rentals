@@ -32,7 +32,9 @@
                                 <select id="id_kendaraan" name="id_kendaraan" class="form-control" required="">
                                     <option value="">Pilih Kendaraan</option>
                                     @foreach ($kendaraans as $kendaraan)
-                                        <option value="{{ $kendaraan->id }}">{{ $kendaraan->nama_kendaraan }}</option>
+                                        <option value="{{ $kendaraan->id }}">
+                                            {{ $kendaraan->nama_kendaraan }} - {{ $kendaraan->no_plat }} 
+                                        </option>
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">

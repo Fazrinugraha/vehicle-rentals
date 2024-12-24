@@ -41,7 +41,8 @@
                         <tr> 
                             <th>No</th> 
                             <th>Nama Kendaraan</th> 
-                            <th>Jenis Kendaraan</th> 
+                            <th>Jenis Kendaraan</th>
+                            <th>No Plat</th> 
                             <th>Status</th> 
                             <th>Gambar</th>
                             <th>Action</th> 
@@ -56,6 +57,7 @@
                             <td>{{ $no += 1 }}</td> 
                             <td>{{ $kendaraan->nama_kendaraan }}</td> 
                             <td>{{ $kendaraan->jenis_kendaraan }}</td>
+                            <td>{{ $kendaraan->no_plat }}</td>
                             <td>{{ $kendaraan->status }}</td>  
                             <td>
                                 @if($kendaraan->images)

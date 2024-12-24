@@ -23,7 +23,8 @@
                         <tr> 
                             <th>No</th> 
                             <th>Nama Peminjam</th> 
-                            <th>Kendaraan</th> 
+                            <th>Kendaraan</th>
+                            <th>No Plat</th>
                             <th>Tanggal Peminjaman</th> 
                             <th>Tanggal Pengembalian</th> 
                             <th>Status</th> 
@@ -39,6 +40,7 @@
                             <td>{{ ++$no }}</td> 
                             <td>{{ $item->nama_peminjam }}</td> 
                             <td>{{ $item->kendaraan->nama_kendaraan }}</td> 
+                            <td>{{ $item->kendaraan->no_plat }}</td> 
                             <td>{{ \Carbon\Carbon::parse($item->tanggal_peminjaman)->format('d-m-Y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($item->tanggal_pengembalian)->format('d-m-Y') }}</td>
                             <td>{{ ucfirst($item->status) }}</td>  

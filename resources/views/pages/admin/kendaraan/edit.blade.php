@@ -17,6 +17,15 @@
         </div>
         <a href="{{ route('admin.kendaraan') }}" class="btn btn-icon icon-left btn-warning">Kembali</a>
         <div class="card mt-4">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form action="{{ route('admin.kendaraan.update', $kendaraan->id) }}" class="needs-validation" novalidate=""
                 enctype="multipart/form-data" method="POST">
                 @csrf
@@ -47,6 +56,16 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group">
+                                <label for="no_plat">No Plat</label>
+                                <input id="no_plat" type="text" class="form-control" name="no_plat" required=""
+                                    value="{{ $kendaraan->no_plat }}">
+                                <div class="invalid-feedback">
+                                    Kolom ini harus diisi dan harus unik!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
                                 <label for="status">Status Kendaraan</label>
                                 <select id="status" name="status" class="form-control" required="">
                                     <option value="tersedia" {{ $kendaraan->status == 'tersedia' ? 'selected' : '' }}>Tersedia</option>
@@ -65,6 +84,11 @@
                                     <label class="custom-file-label" for="customFile">Pilih Gambar</label>
                                 </div>
                                 <small class="form-text text-muted">Biarkan kosong jika tidak ingin mengubah gambar.</small>
+                                @if ($kendaraan->images) 
+                                    <div class="mt-2">
+                                        <img src="{{ asset('images/' . $kendaraan->images) }}" alt="Current Image" style="max-width: 150px; max-height: 150px;">
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
