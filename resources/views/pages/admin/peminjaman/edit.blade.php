@@ -21,7 +21,7 @@
         <div class="card mt-4">
             <form action="{{ route('admin.peminjaman.update', $peminjaman->id) }}" class="needs-validation" novalidate="" method="POST">
                 @csrf
-                @method('PUT') <!-- Menambahkan method PUT untuk update -->
+                @method('PUT') 
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6"> 

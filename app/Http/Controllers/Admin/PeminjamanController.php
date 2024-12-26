@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Peminjaman; // Menggunakan model Peminjaman
-use App\Models\Kendaraan; // Menggunakan model Kendaraan
+use App\Models\Peminjaman; 
+use App\Models\Kendaraan; 
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -16,11 +16,11 @@ class PeminjamanController extends Controller
     {
         // Mengambil semua peminjaman dengan relasi kendaraan, diurutkan berdasarkan tanggal peminjaman dan tanggal pengembalian
         $peminjaman = Peminjaman::with('kendaraan')
-            ->orderBy('tanggal_peminjaman', 'desc') // Urutkan berdasarkan tanggal peminjaman terbaru
-            ->orderBy('tanggal_pengembalian', 'desc') // Jika tanggal peminjaman sama, urutkan berdasarkan tanggal pengembalian terbaru
+            ->orderBy('tanggal_peminjaman', 'desc') 
+            ->orderBy('tanggal_pengembalian', 'desc') 
             ->paginate(10);;
 
-        confirmDelete('Hapus Data!', 'Apakah anda yakin ingin menghapus data ini?'); // Konfirmasi Hapus Distributor
+        confirmDelete('Hapus Data!', 'Apakah anda yakin ingin menghapus data ini?'); 
 
         return view('pages.admin.peminjaman.index', compact('peminjaman'));
     }
@@ -28,7 +28,7 @@ class PeminjamanController extends Controller
     // Menampilkan form tambah peminjaman
     public function create()
     {
-        $kendaraans = Kendaraan::where('status', 'tersedia')->get(); // Mengambil kendaraan yang tersedia
+        $kendaraans = Kendaraan::where('status', 'tersedia')->get(); 
         return view('pages.admin.peminjaman.create', compact('kendaraans'));
     }
 
@@ -36,7 +36,7 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id_kendaraan' => 'required|exists:kendaraans,id', // Validasi untuk kendaraan
+            'id_kendaraan' => 'required|exists:kendaraans,id', 
             'nama_peminjam' => 'required|string|max:100',
             'tanggal_peminjaman' => 'required|date',
             'tanggal_pengembalian' => 'required|date|after:tanggal_peminjaman',
@@ -47,13 +47,13 @@ class PeminjamanController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        // Create the peminjaman
+        // Create peminjaman
         $peminjaman = Peminjaman::create([
             'id_kendaraan' => $request->id_kendaraan,
             'nama_peminjam' => $request->nama_peminjam,
             'tanggal_peminjaman' => $request->tanggal_peminjaman,
             'tanggal_pengembalian' => $request->tanggal_pengembalian,
-            'status' => 'dipinjam', // Status default
+            'status' => 'dipinjam', 
         ]);
 
         if ($peminjaman) {
@@ -73,7 +73,7 @@ class PeminjamanController extends Controller
     // Menampilkan detail peminjaman
     public function detail($id)
     {
-        $peminjaman = Peminjaman::with('kendaraan')->findOrFail($id); // Mengambil peminjaman beserta kendaraan
+        $peminjaman = Peminjaman::with('kendaraan')->findOrFail($id); 
         return view('pages.admin.peminjaman.detail', compact('peminjaman'));
     }
 
@@ -81,7 +81,7 @@ class PeminjamanController extends Controller
     public function edit($id)
     {
         $peminjaman = Peminjaman::findOrFail($id);
-        $kendaraans = Kendaraan::where('status', 'tersedia')->get(); // Mengambil kendaraan yang tersedia
+        $kendaraans = Kendaraan::where('status', 'tersedia')->get(); 
         return view('pages.admin.peminjaman.edit', compact('peminjaman', 'kendaraans'));
     }
 
@@ -92,7 +92,7 @@ class PeminjamanController extends Controller
             'nama_peminjam' => 'required|string|max:100',
             'tanggal_peminjaman' => 'required|date',
             'tanggal_pengembalian' => 'required|date|after:tanggal_peminjaman',
-            'status' => 'required|string|in:dipinjam,dikembalikan', // Validasi untuk status
+            'status' => 'required|string|in:dipinjam,dikembalikan', 
         ]);
     
         if ($validator->fails()) {
@@ -102,12 +102,11 @@ class PeminjamanController extends Controller
     
         $peminjaman = Peminjaman::findOrFail($id);
     
-        // Hanya memperbarui informasi peminjam dan tanggal
         $peminjaman->update([
             'nama_peminjam' => $request->nama_peminjam,
             'tanggal_peminjaman' => $request->tanggal_peminjaman,
             'tanggal_pengembalian' => $request->tanggal_pengembalian,
-            'status' => $request->status, // Memperbarui status
+            'status' => $request->status, 
         ]);
     
         // Jika status diubah menjadi 'dikembalikan', update status kendaraan
@@ -120,6 +119,7 @@ class PeminjamanController extends Controller
         Alert::success('Berhasil!', 'Peminjaman berhasil diperbarui!');
         return redirect()->route('admin.peminjaman');
     }
+
     // Menghapus peminjaman
     public function delete($id)
     {
@@ -131,7 +131,7 @@ class PeminjamanController extends Controller
             $kendaraan->status = 'tersedia';
             $kendaraan->save();
     
-            $peminjaman->delete(); // Menghapus data peminjaman dari database
+            $peminjaman->delete(); 
             Alert::success('Berhasil!', 'Peminjaman berhasil dihapus!');
             return redirect()->route('admin.peminjaman');
         } else {

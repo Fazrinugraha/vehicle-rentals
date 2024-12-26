@@ -30,23 +30,6 @@
                     </div> 
                 </div> 
 
-                <!-- Total Pengguna -->
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12"> 
-                    <div class="card card-statistic-1"> 
-                        <div class="card-icon" style="background-color: #4CAF50;">
-                            <i class="fas fa-users"></i> 
-                        </div> 
-                        <div class="card-wrap"> 
-                            <div class="card-header"> 
-                                <h4>Total Pengguna</h4> 
-                            </div> 
-                            <div class="card-body"> 
-                                {{ $users }} 
-                            </div> 
-                        </div> 
-                    </div> 
-                </div> 
-
                 <!-- Total Kendaraan -->
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12"> 
                     <div class="card card-statistic-1"> 
@@ -123,7 +106,8 @@
                                 <td>{{ $kendaraan->status }}</td>  
                                 <td>
                                     @if($kendaraan->images)
-                                        <img src="{{ asset('images/' . $kendaraan->images) }}" alt="Gambar {{ $kendaraan->nama_kendaraan }}" style="width: 100px; height: auto;">
+                                        <img src="{{ asset('images/' . $kendaraan->images) }}" 
+                                        alt="Gambar {{ $kendaraan->nama_kendaraan }}" style="width: 100px; height: auto;">
                                     @else
                                         <span>Tidak ada gambar</span>
                                     @endif

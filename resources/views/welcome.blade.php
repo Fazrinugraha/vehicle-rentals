@@ -39,11 +39,6 @@
                 <div class="col-lg-6">
                     <div class="">
                         <img class="img-fluid" src="{{ asset('assets/templates/user/img/login.jpg') }}" alt="Login Image">
-                        <!-- <div class="hover"> -->
-                            <!-- <h4>Vehicle Rentals</h4> -->
-                            <!-- <p>There are advances being made in science and technology every day, and a good example of this is the</p>
-                            <a class="primary-btn" href="registration.html">Create an Account</a> -->
-                        <!-- </div> -->
                     </div>
                 </div>
 
@@ -63,9 +58,6 @@
                                 <button type="submit" value="submit" class="primary-btn">Log In</button>
                             </div>
                         </form>
-                        <div class="hover">
-                            <a class="primary-btn" href="registration.html">Create an Account</a>
-                        </div>
                     </div>
                 </div>
             </div>

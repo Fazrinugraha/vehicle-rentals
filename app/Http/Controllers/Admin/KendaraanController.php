@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Kendaraan; // Menggunakan model Kendaraan
+use App\Models\Kendaraan; 
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -20,7 +20,7 @@ class KendaraanController extends Controller
             return $query->where('status', $status);
         })->paginate(10);
     
-        confirmDelete('Hapus Data!', 'Apakah anda yakin ingin menghapus data ini?'); // Konfirmasi Hapus Distributor
+        confirmDelete('Hapus Data!', 'Apakah anda yakin ingin menghapus data ini?'); 
     
         return view('pages.admin.kendaraan.index', compact('kendaraans', 'status'));
     }
@@ -51,11 +51,11 @@ class KendaraanController extends Controller
         $imageName = null;
         if ($request->hasFile('images')) {
             $image = $request->file('images');
-            $imageName = time() . '.' . $image->getClientOriginalExtension(); // Membuat nama gambar unik
-            $image->move(public_path('images'), $imageName); // Pindahkan gambar ke folder public/images
+            $imageName = time() . '.' . $image->getClientOriginalExtension(); 
+            $image->move(public_path('images'), $imageName); 
         }
 
-        // Create the kendaraan
+        // Create kendaraan
         $kendaraan = Kendaraan::create([
             'nama_kendaraan' => $request->nama_kendaraan,
             'jenis_kendaraan' => $request->jenis_kendaraan,
@@ -76,7 +76,7 @@ class KendaraanController extends Controller
     // Function Detail Kendaraan
     public function detail($id)
     {
-        $kendaraan = Kendaraan::findOrFail($id); // Fetch a single kendaraan by ID
+        $kendaraan = Kendaraan::findOrFail($id); 
         return view('pages.admin.kendaraan.detail', compact('kendaraan'));
     }
 
@@ -105,15 +105,15 @@ class KendaraanController extends Controller
         }
     
         $kendaraan = Kendaraan::findOrFail($id);
-        $kendaraan->update($request->except('images')); // Update data lain
+        $kendaraan->update($request->except('images')); 
     
         // Proses penyimpanan gambar jika ada
         if ($request->hasFile('images')) {
             $image = $request->file('images');
-            $imageName = time() . '.' . $image->getClientOriginalExtension(); // Membuat nama gambar unik
-            $image->move(public_path('images'), $imageName); // Pindahkan gambar ke folder public/images
-            $kendaraan->images = $imageName; // Update nama gambar
-        } else {
+            $imageName = time() . '.' . $image->getClientOriginalExtension(); 
+            $image->move(public_path('images'), $imageName); 
+            $kendaraan->images = $imageName; 
+
             // Jika tidak ada gambar baru, tetap gunakan gambar yang lama
             $kendaraan->images = $kendaraan->images; 
         }
@@ -132,17 +132,17 @@ class KendaraanController extends Controller
 
         if ($kendaraan) {
             // Hapus semua peminjaman yang terkait dengan kendaraan ini
-            $kendaraan->peminjaman()->delete(); // Menghapus semua peminjaman terkait
+            $kendaraan->peminjaman()->delete(); 
 
             // Jika ada gambar, hapus file gambar dari server
             if ($kendaraan->images) {
                 $imagePath = public_path('images/' . $kendaraan->images);
                 if (file_exists($imagePath)) {
-                    unlink($imagePath); // Menghapus file gambar
+                    unlink($imagePath); 
                 }
             }
 
-            $kendaraan->delete(); // Menghapus data kendaraan dari database
+            $kendaraan->delete(); 
             Alert::success('Berhasil!', 'Kendaraan berhasil dihapus!');
             return redirect()->route('admin.kendaraan');
         } else {

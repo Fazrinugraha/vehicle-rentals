@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
-use App\Models\User;
 
 class AuthController extends Controller
 {
-    // Login function for both admin and regular user
+    // Login function for both admin
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -24,21 +23,11 @@ class AuthController extends Controller
             return redirect()->back();
         }
 
-        // Check for admin login attempt
+        // Check for admin login 
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            // Retrieve the authenticated admin
             $admin = Auth::guard('admin')->user();
-            // Use the admin's name in the success message
             toast('Selamat datang, ' . $admin->name . '!', 'success');
             return redirect()->route('admin.dashboard');
-            // toast('Selamat datang admin!', 'success');
-            // return redirect()->route('admin.dashboard');
-        } 
-        // Check for regular user login attempt
-        elseif (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user();
-            toast('Selamat datang, ' . $user->name . '!', 'success');
-            return redirect()->route('user.dashboard');
         } 
         // Login failed
         else {
@@ -51,14 +40,6 @@ class AuthController extends Controller
     public function admin_logout() 
     {
         Auth::guard('admin')->logout();
-        toast('Berhasil logout!', 'success');
-        return redirect('/');
-    }
-
-    // User logout function
-    public function user_logout() 
-    {
-        Auth::logout();
         toast('Berhasil logout!', 'success');
         return redirect('/');
     }

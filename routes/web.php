@@ -17,7 +17,7 @@ Route::group(['middleware' => 'guest'], function () {
 
 // Admin Route -> halaman admin
 Route::group(['middleware' => 'admin'], function () {
-    Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard'); // Mengarahkan ke method dashboard
+    Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard'); 
 
     // Rute untuk Kendaraan
     Route::get('/admin/kendaraan', [KendaraanController::class, 'index'])->name('admin.kendaraan'); // Menampilkan daftar kendaraan
@@ -28,6 +28,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::put('/admin/kendaraan/{id}', [KendaraanController::class, 'update'])->name('admin.kendaraan.update'); // Memperbarui kendaraan
     Route::delete('/admin/kendaraan/{id}', [KendaraanController::class, 'delete'])->name('admin.kendaraan.delete'); // Menghapus kendaraan
     
+     // Rute untuk Peminjaman
     Route::get('/admin/peminjaman', [PeminjamanController::class, 'index'])->name('admin.peminjaman'); // Menampilkan daftar peminjaman
     Route::get('/admin/peminjaman/create', [PeminjamanController::class, 'create'])->name('admin.peminjaman.create'); // Menampilkan form tambah peminjaman
     Route::post('/admin/peminjaman', [PeminjamanController::class, 'store'])->name('admin.peminjaman.store'); // Menyimpan peminjaman baru

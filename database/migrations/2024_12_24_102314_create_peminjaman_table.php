@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('peminjaman', function (Blueprint $table) {
-            $table->id(); // Menentukan nama kolom id
-            $table->foreignId('id_kendaraan')->constrained('kendaraans'); // Menentukan nama kolom foreign key
+            $table->id(); 
+            $table->foreignId('id_kendaraan')->constrained('kendaraans'); 
             $table->string('nama_peminjam', 100);
             $table->date('tanggal_peminjaman');
             $table->date('tanggal_pengembalian');

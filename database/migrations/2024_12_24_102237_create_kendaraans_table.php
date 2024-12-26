@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kendaraans', function (Blueprint $table) {
-            $table->id(); // Menggunakan default id
+            $table->id(); 
             $table->string('nama_kendaraan', 50);
             $table->enum('jenis_kendaraan', ['mobil', 'motor']);
             $table->enum('status', ['tersedia', 'dipinjam'])->default('tersedia');
             $table->string('images')->nullable();
+            $table->string('no_plat', 20)->unique()->after('images'); 
             $table->timestamps();
         });
     }
